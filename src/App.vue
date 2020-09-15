@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="app">
+
+    <ProgressBar />
+    <QuizQuestion></QuizQuestion>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ProgressBar from "./components/ProgressBar.vue";
+import QuizQuestion from "./components/QuizQuestion.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    ProgressBar,
+    QuizQuestion,
+  },
+ 
+};
 </script>
 
 <style>
@@ -21,8 +26,20 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
+  color: #ced0d5;
+  background: #252c4a;
+  padding: 0;
+  margin: auto;
+  box-sizing: border-box;
+  max-width: 1024px;
+  height: 100vh;
+  
+}
+
+.app{
+  width: 80%;
+  margin: auto;
+
 }
 </style>
