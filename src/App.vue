@@ -6,6 +6,7 @@
         :ongoing="progress"
         :currentQuestion="questions[current].question"
         :currentObject="questions[current]"
+        :question="questions"
         :counter="current"
       ></QuizQuestion>
       <buttonComponent @increment="add"></buttonComponent>
@@ -69,7 +70,7 @@ export default {
   margin: auto;
   box-sizing: border-box;
   max-width: 1024px;
-  height: calc(100vh);
+  height: 100%;
 }
 
 .app {

@@ -2,19 +2,18 @@
   <div class="quiz-question">
     <div>
       <p>
-        <span class="ques">Question {{ongoing.answered}}</span>
+        <span class="ques">Question {{counter + 1 }}</span>
         /
-        {{ongoing.totalQues}}
+        {{question.length}}
       </p>
 
       <div class="ques-box">
         <p>{{currentQuestion | replace | apostroph }}😏</p>
       </div>
     </div>
-
-    <p class="answer"
-    v-for='(answer, index) in answers' :key='index'
-    >{{ answer }}</p>
+    <div class="answer-container">
+      <p class="answer" v-for="(answer, index) in answers" :key="index">{{ answer }}</p>
+    </div>
   </div>
 </template>
 
@@ -35,6 +34,9 @@ export default {
     counter: {
       type: Number,
     },
+    question: {
+      type: Number,
+    },
   },
   data() {
     return {};
@@ -52,7 +54,10 @@ export default {
       let answer = [...this.currentObject.incorrect_answers];
       answer.push(this.currentObject.correct_answer);
       return answer;
-    }
+    },
+    // totalques(){
+    //   total = th
+    // }
   },
 };
 </script>
@@ -69,8 +74,10 @@ export default {
   font-size: 1.1rem;
   color: #e7e8eb;
 }
+.answer-container {
+  margin-top: 5em;
+}
 .answer {
-  width: 100%;
   border-radius: 1.4em;
   border: 4px solid #233858;
   padding: 0.9em 0;
