@@ -5,10 +5,12 @@
       <QuizQuestion
         :ongoing="progress"
         :currentQuestion="questions[current].question"
+        :currentObject="questions[current]"
         :counter="current"
-        v-on:add="increment"
       ></QuizQuestion>
-      
+      <buttonComponent
+      @increment='add'
+      ></buttonComponent>
     </div>
   </div>
 </template>
@@ -16,11 +18,13 @@
 <script>
 import ProgressBar from "./components/ProgressBar.vue";
 import QuizQuestion from "./components/QuizQuestion.vue";
+import buttonComponent from "./components/buttonComponent";
 export default {
   name: "App",
   components: {
     ProgressBar,
     QuizQuestion,
+    buttonComponent,
   },
   data() {
     return {
@@ -47,12 +51,11 @@ export default {
         vm.questions = response.results;
       });
   },
- methods: {
-    increment() {
+  methods: {
+    add() {
       this.current++;
     },
   },
- 
 };
 </script>
 
@@ -80,7 +83,7 @@ button {
   border: none;
   color: white;
   border-radius: 1em;
-  outline:none;
+  outline: none;
   padding: 1.2em 2.3em;
   text-align: center;
   text-decoration: none;
