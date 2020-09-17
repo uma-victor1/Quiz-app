@@ -8,9 +8,7 @@
         :currentObject="questions[current]"
         :counter="current"
       ></QuizQuestion>
-      <buttonComponent
-      @increment='add'
-      ></buttonComponent>
+      <buttonComponent @increment="add"></buttonComponent>
     </div>
   </div>
 </template>
@@ -71,7 +69,7 @@ export default {
   margin: auto;
   box-sizing: border-box;
   max-width: 1024px;
-  height: 100vh;
+  height: calc(100vh);
 }
 
 .app {

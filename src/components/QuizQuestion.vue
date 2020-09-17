@@ -8,7 +8,7 @@
       </p>
 
       <div class="ques-box">
-        <p>{{currentQuestion | replace}}😏</p>
+        <p>{{currentQuestion | replace | apostroph }}😏</p>
       </div>
     </div>
 
@@ -42,6 +42,9 @@ export default {
   filters: {
     replace: function (value) {
       return value.replace(/&quot;/g, '"');
+    },
+    apostroph: function (value) {
+      return value.replace(/&#039;/g, "'");
     },
   },
   computed: {
