@@ -2,22 +2,31 @@
   <div class="quiz-question">
     <div>
       <p>
-        <span class="ques">Question {{counter + 1 }}</span>
+        <span class="ques">Question {{ counter + 1 }}</span>
         /
-        {{question.length}}
+        {{ question.length }}
       </p>
 
       <div class="ques-box">
-        <p>{{currentQuestion | replace | apostroph }}😏</p>
+        <p>{{ currentQuestion | replace | apostroph }}😏</p>
       </div>
     </div>
     <div class="answer-container">
-      <p class="answer" v-for="(answer, index) in answers" :key="index">{{ answer }}</p>
+      <p
+        class="answer"
+        v-for="(answer, index) in shuffledAnswer"
+        :key="index"
+        @click.prevent="selected(index)"
+        :class="[selectedAnswer === index ? 'selected' : '']"
+      >
+        {{ answer }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
 export default {
   name: "QuizQuestion",
   components: {},
@@ -34,19 +43,43 @@ export default {
     counter: {
       type: Number,
     },
-    question: {
-      type: Number,
-    },
+    question: {},
   },
   data() {
-    return {};
+    return {
+      selectedAnswer: null,
+      shuffledAnswer: [],
+    };
   },
   filters: {
-    replace: function (value) {
+    replace: function(value) {
       return value.replace(/&quot;/g, '"');
     },
-    apostroph: function (value) {
+    apostroph: function(value) {
       return value.replace(/&#039;/g, "'");
+    },
+  },
+  watch: {
+    currentObject:{
+      immediate: true,
+      handler(){
+        this.selectedAnswer = null;
+       this.shuffleAnswers();
+      }
+
+    }
+  },
+  methods: {
+    selected(index) {
+      console.log(index);
+      this.selectedAnswer = index;
+    },
+    shuffleAnswers() {
+      let answer = [
+        ...this.currentObject.incorrect_answers,
+        this.currentObject.correct_answer
+      ];
+      this.shuffledAnswer = _.shuffle(answer);
     },
   },
   computed: {
@@ -62,7 +95,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .quiz-question {
   margin-top: 3em;
   color: #70789e;
@@ -85,5 +118,17 @@ export default {
   color: #b2b5bf;
   margin-bottom: 1em;
 }
+.answer:hover {
+  background: #416aa7;
+  cursor: pointer;
+}
+.selected {
+  background: #3e6299;
+}
+.correctanswer {
+  background: rgb(112, 248, 112);
+}
+.incorrectanswer {
+  background: rgb(240, 79, 79);
+}
 </style>
- 

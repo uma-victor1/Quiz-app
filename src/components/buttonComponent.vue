@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button @click="update">Next</button>
+    <button @click="update">
+      <slot>Next</slot>
+    </button>
   </div>
 </template>
 
@@ -10,6 +12,7 @@ export default {
     update() {
       this.$emit("increment");
     },
+    
   },
 };
 </script>

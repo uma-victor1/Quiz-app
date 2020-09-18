@@ -9,7 +9,13 @@
         :question="questions"
         :counter="current"
       ></QuizQuestion>
+      <div class="nav">
+
       <buttonComponent @increment="add"></buttonComponent>
+      <buttonComponent
+      
+      > Submit </buttonComponent>
+      </div>
     </div>
   </div>
 </template>
@@ -87,5 +93,13 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
+}
+.nav{
+  display: flex;
+  width: 50%;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+ padding-bottom: 3em;
 }
 </style>
