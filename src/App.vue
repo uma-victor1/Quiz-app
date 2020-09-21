@@ -3,18 +3,17 @@
     <div class="app">
       <ProgressBar />
       <QuizQuestion
+        
         :ongoing="progress"
         :currentQuestion="questions[current].question"
         :currentObject="questions[current]"
         :question="questions"
         :counter="current"
+        @submitdata="submitdata"
       ></QuizQuestion>
       <div class="nav">
-
-      <buttonComponent @increment="add"></buttonComponent>
-      <buttonComponent
-      
-      > Submit </buttonComponent>
+        <buttonComponent @increment="add" @submit="submitAnswer" :array="childdata" ></buttonComponent>
+       
       </div>
     </div>
   </div>
@@ -39,10 +38,13 @@ export default {
       },
       questions: [],
       current: 0,
+      correctAnswers: [],
+      childdata: [],
+      answered:null,
     };
   },
-  mounted() {
-    let vm = this;
+ beforeCreate() {
+   
     fetch(
       "https://opentdb.com/api.php?amount=10&category=31&difficulty=easy&type=multiple",
       {
@@ -53,12 +55,27 @@ export default {
         return data.json();
       })
       .then((response) => {
-        vm.questions = response.results;
+        this.questions = response.results;
       });
   },
   methods: {
     add() {
       this.current++;
+    },
+    submitdata(value) {
+      this.childdata = value;
+      this.answered = this.childdata[2]
+    },
+    submitAnswer() {
+      let correctAnswer = false;
+      if (this.childdata[1] == this.childdata[0]) {
+        correctAnswer = true;
+        this.childdata[1] = null
+        this.progress.answered++;
+        console.log(correctAnswer);
+        alert('submitted')
+      }
+      this.answered = false
     },
   },
 };
@@ -94,12 +111,12 @@ button {
   text-decoration: none;
   display: inline-block;
 }
-.nav{
+.nav {
   display: flex;
   width: 50%;
   margin: auto;
   flex-wrap: wrap;
   justify-content: space-around;
- padding-bottom: 3em;
+  padding-bottom: 3em;
 }
 </style>

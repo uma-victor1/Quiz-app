@@ -1,5 +1,5 @@
 <template>
-  <div class="quiz-question">
+  <div class="quiz-question" v-if="question.length">
     <div>
       <p>
         <span class="ques">Question {{ counter + 1 }}</span>
@@ -17,10 +17,13 @@
         v-for="(answer, index) in shuffledAnswer"
         :key="index"
         @click.prevent="selected(index)"
-        :class="[selectedAnswer === index ? 'selected' : '']"
-      >
-        {{ answer }}
-      </p>
+        @click="selecteddata(event)"
+        :class="[
+        !answeredques && selectedAnswer === index ? 'selected' : 
+       !answeredques &&  correctIndex === index ? 'correctanswer' : ''
+
+        ]"
+      >{{ answer }}</p>
     </div>
   </div>
 </template>
@@ -49,37 +52,48 @@ export default {
     return {
       selectedAnswer: null,
       shuffledAnswer: [],
+      correctIndex: null,
+      answeredques: false,
     };
   },
   filters: {
-    replace: function(value) {
+    replace: function (value) {
       return value.replace(/&quot;/g, '"');
     },
-    apostroph: function(value) {
+    apostroph: function (value) {
       return value.replace(/&#039;/g, "'");
     },
   },
   watch: {
-    currentObject:{
+    currentObject: {
       immediate: true,
-      handler(){
+      handler() {
         this.selectedAnswer = null;
-       this.shuffleAnswers();
-      }
-
-    }
+        this.shuffleAnswers();
+        this.answeredques = false
+      },
+    },
   },
   methods: {
     selected(index) {
-      console.log(index);
       this.selectedAnswer = index;
+    },
+    selecteddata(event) {
+      this.$emit("submitdata", [
+        this.correctIndex,
+        this.selectedAnswer,
+        this.answeredques,
+      ]);
     },
     shuffleAnswers() {
       let answer = [
         ...this.currentObject.incorrect_answers,
-        this.currentObject.correct_answer
+        this.currentObject.correct_answer,
       ];
       this.shuffledAnswer = _.shuffle(answer);
+      this.correctIndex = this.shuffledAnswer.indexOf(
+        this.currentObject.correct_answer
+      );
     },
   },
   computed: {

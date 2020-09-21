@@ -3,16 +3,28 @@
     <button @click="update">
       <slot>Next</slot>
     </button>
+    <button  @click="submit">
+      <slot>submit</slot>
+    </button>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      quesdata: [],
+    };
+  },
+  props: ["array"],
   methods: {
     update() {
       this.$emit("increment");
+      
     },
-    
+    submit(){
+      this.$emit("submit");
+    }
   },
 };
 </script>
@@ -31,5 +43,8 @@ button {
   margin: auto;
   margin-top: 3em;
   display: flex;
+}
+button:active{
+  background:  #022b53;
 }
 </style>
