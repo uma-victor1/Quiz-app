@@ -9,10 +9,13 @@
         :currentObject="questions[current]"
         :question="questions"
         :counter="current"
+        :correctanswer="correctanswer"
+        :answered="answered"
         @submitdata="submitdata"
+        
       ></QuizQuestion>
       <div class="nav">
-        <buttonComponent @increment="add" @submit="submitAnswer" :array="childdata" ></buttonComponent>
+        <buttonComponent @increment="add" :answered="answered" @submit="submitAnswer" :array="childdata" ></buttonComponent>
        
       </div>
     </div>
@@ -40,7 +43,10 @@ export default {
       current: 0,
       correctAnswers: [],
       childdata: [],
-      answered:null,
+     answered: false,
+     correctanswer: null,
+     correctIndex:null,
+     selectedAnswer:null
     };
   },
  beforeCreate() {
@@ -61,21 +67,29 @@ export default {
   methods: {
     add() {
       this.current++;
+     
+      if (this.selectedAnswer === null){
+        alert('please choose an answer mofo')
+      }
     },
     submitdata(value) {
+       this.answered = true;
       this.childdata = value;
       this.answered = this.childdata[2]
+      this.correctIndex = this.childdata[0]
+      this.selectedAnswer = this.childdata[1]
     },
     submitAnswer() {
       let correctAnswer = false;
-      if (this.childdata[1] == this.childdata[0]) {
+      if (this.childdata[1] === this.childdata[0]) {
         correctAnswer = true;
         this.childdata[1] = null
         this.progress.answered++;
         console.log(correctAnswer);
         alert('submitted')
       }
-      this.answered = false
+      this.correctanswer = correctAnswer
+      this.answered = true
     },
   },
 };

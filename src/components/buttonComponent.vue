@@ -1,22 +1,30 @@
 <template>
   <div>
-    <button @click="update">
+    <button :disabled='answered == false' @click="update">
       <slot>Next</slot>
     </button>
-    <button  @click="submit">
+    <button @click="submit">
       <slot>submit</slot>
     </button>
   </div>
 </template>
 
 <script>
+import { bus } from '../main';
 export default {
   data() {
     return {
       quesdata: [],
+      quizdata:[]
+
     };
   },
-  props: ["array"],
+  props: ["array", 'answered'],
+  created (){
+    bus.$on('changeIt', (data) => {
+      this.quizdata = data;
+    })
+  },
   methods: {
     update() {
       this.$emit("increment");

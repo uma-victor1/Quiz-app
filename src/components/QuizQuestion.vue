@@ -20,15 +20,17 @@
         @click="selecteddata(event)"
         :class="[
         !answeredques && selectedAnswer === index ? 'selected' : 
-       !answeredques &&  correctIndex === index ? 'correctanswer' : ''
+      answered && correctIndex  == index ? 'correctanswer' : ''
 
         ]"
       >{{ answer }}</p>
     </div>
+    
   </div>
 </template>
 
 <script>
+import { bus } from "../main";
 import _ from "lodash";
 export default {
   name: "QuizQuestion",
@@ -47,6 +49,7 @@ export default {
       type: Number,
     },
     question: {},
+    answered: Boolean,
   },
   data() {
     return {
@@ -70,15 +73,23 @@ export default {
       handler() {
         this.selectedAnswer = null;
         this.shuffleAnswers();
-        this.answeredques = false
+        this.answeredques = false;
+        this.answered = false;
       },
     },
   },
   methods: {
     selected(index) {
       this.selectedAnswer = index;
+       this.answered = true;
+      bus.$emit("changeIt", [
+        this.correctIndex,
+        this.selectedAnswer,
+        this.answeredques,
+      ]);
     },
     selecteddata(event) {
+       this.answered = true;
       this.$emit("submitdata", [
         this.correctIndex,
         this.selectedAnswer,
