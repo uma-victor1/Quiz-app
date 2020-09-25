@@ -16,7 +16,7 @@
         class="answer"
         v-for="(answer, index) in shuffledAnswer"
         :key="index"
-        @click.prevent="selected(index)"
+        @load.prevent="selected(index)"
         @click="selecteddata(event)"
         :class="[
         !answeredques && selectedAnswer === index ? 'selected' : 
@@ -53,10 +53,12 @@ export default {
   },
   data() {
     return {
+      current: 0,
+      
       selectedAnswer: null,
       shuffledAnswer: [],
       correctIndex: null,
-      answeredques: false,
+      answeredques: 0,
     };
   },
   filters: {
@@ -86,14 +88,19 @@ export default {
         this.correctIndex,
         this.selectedAnswer,
         this.answeredques,
+       
       ]);
+      
     },
     selecteddata(event) {
        this.answered = true;
+        this.current++;
+        this.answeredques++
       this.$emit("submitdata", [
         this.correctIndex,
         this.selectedAnswer,
         this.answeredques,
+        this.current
       ]);
     },
     shuffleAnswers() {

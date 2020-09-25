@@ -15,7 +15,7 @@
         
       ></QuizQuestion>
       <div class="nav">
-        <buttonComponent @increment="add" :answered="answered" @submit="submitAnswer" :array="childdata" ></buttonComponent>
+        <buttonComponent  @increment="add" :answered="progress.answered" @submit="submitAnswer"  :array="childdata" :total='current' ></buttonComponent>
        
       </div>
     </div>
@@ -36,17 +36,18 @@ export default {
   data() {
     return {
       progress: {
-        answered: 1,
+        answered: 2,
         totalQues: 20,
       },
       questions: [],
-      current: 0,
+      
       correctAnswers: [],
       childdata: [],
-     answered: false,
+     answered: 0,
      correctanswer: null,
      correctIndex:null,
-     selectedAnswer:null
+     selectedAnswer:null,
+     current:0
     };
   },
  beforeCreate() {
@@ -63,21 +64,27 @@ export default {
       .then((response) => {
         this.questions = response.results;
       });
+      
+      
   },
+  
   methods: {
     add() {
-      this.current++;
+      
      
       if (this.selectedAnswer === null){
         alert('please choose an answer mofo')
       }
     },
+    
     submitdata(value) {
+      this.progress.answered ++
        this.answered = true;
       this.childdata = value;
       this.answered = this.childdata[2]
       this.correctIndex = this.childdata[0]
       this.selectedAnswer = this.childdata[1]
+      this.current = this.childdata[3]
     },
     submitAnswer() {
       let correctAnswer = false;
@@ -106,13 +113,14 @@ export default {
   padding: 0;
   margin: auto;
   box-sizing: border-box;
-  max-width: 1024px;
+ 
   height: 100%;
 }
 
 .app {
   width: 80%;
   margin: auto;
+   max-width: 900px;
 }
 button {
   background-color: #107eeb;

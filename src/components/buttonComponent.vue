@@ -1,38 +1,25 @@
 <template>
   <div>
-    <button :disabled='answered == false' @click="update">
-      <slot>Next</slot>
-    </button>
-    <button @click="submit">
+    <button :disabled="total < 9" @click="submit">
       <slot>submit</slot>
     </button>
   </div>
 </template>
 
 <script>
-import { bus } from '../main';
+import { bus } from "../main";
 export default {
   data() {
     return {
-      quesdata: [],
-      quizdata:[]
-
+  
     };
   },
-  props: ["array", 'answered'],
-  created (){
-    bus.$on('changeIt', (data) => {
-      this.quizdata = data;
-    })
-  },
+  props: ["array", "total",'answered'],
+ 
   methods: {
-    update() {
-      this.$emit("increment");
-      
-    },
-    submit(){
+    submit() {
       this.$emit("submit");
-    }
+    },
   },
 };
 </script>
@@ -52,7 +39,7 @@ button {
   margin-top: 3em;
   display: flex;
 }
-button:active{
-  background:  #022b53;
+button:active {
+  background: #022b53;
 }
 </style>
