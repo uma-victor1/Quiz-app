@@ -18,14 +18,11 @@
         :key="index"
         @load.prevent="selected(index)"
         @click="selecteddata(event)"
-        :class="[
-      
-      answered && correctIndex  == index ? 'correctanswer' : ''
-
-        ]"
-      >{{ answer }}</p>
+        :class="[answered && correctIndex == index ? 'correctanswer' : '']"
+      >
+        {{ answer }}
+      </p>
     </div>
-    
   </div>
 </template>
 
@@ -54,7 +51,7 @@ export default {
   data() {
     return {
       current: 0,
-      
+
       selectedAnswer: null,
       shuffledAnswer: [],
       correctIndex: null,
@@ -83,24 +80,22 @@ export default {
   methods: {
     selected(index) {
       this.selectedAnswer = index;
-       this.answered = true;
+      this.answered = true;
       bus.$emit("changeIt", [
         this.correctIndex,
         this.selectedAnswer,
         this.answeredques,
-       
       ]);
-      
     },
     selecteddata(event) {
-       this.answered = true;
-        this.current++;
-        this.answeredques++
+      this.answered = true;
+      this.current++;
+      this.answeredques++;
       this.$emit("submitdata", [
         this.correctIndex,
         this.selectedAnswer,
         this.answeredques,
-        this.current
+        this.current,
       ]);
     },
     shuffleAnswers() {
@@ -129,40 +124,34 @@ export default {
 
 <style scoped>
 .quiz-question {
-   padding-top:1em;
+  padding-top: 1em;
   color: #70789e;
 }
 .ques {
   font-size: 1.3rem;
-
 }
 .ques-box {
   font-size: 1.1rem;
   color: #e7e8eb;
 }
 .answer-container {
-  margin-top: 2em;
+  margin-top: 1.8em;
 }
 .answer {
   border-radius: 1.4em;
   border: 3px solid #233858;
-  padding: 0.5em 0;
+  padding: 0.7em 0;
   text-align: center;
   color: #b2b5bf;
   margin-bottom: 1em;
-    box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12)
-;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
 }
 .answer:hover {
   background: #416aa7;
   cursor: pointer;
-  
 }
 .selected {
   background: #3e6299;

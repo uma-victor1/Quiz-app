@@ -109,7 +109,7 @@ export default {
   font-family: 'Josefin Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+ display:flex;
   color: #ced0d5;
   background: #252c4a;
   padding: 0;
@@ -141,6 +141,6 @@ button {
   margin: auto;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding-bottom: 3em;
+  
 }
 </style>

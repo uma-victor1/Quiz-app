@@ -36,7 +36,7 @@ button {
   text-decoration: none;
   display: inline-block;
   margin: auto;
-  margin-top: 3em;
+  margin-top: 1em;
   display: flex;
 }
 button:active {
