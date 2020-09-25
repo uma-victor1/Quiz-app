@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="app">
-      <ProgressBar />
+      
       <QuizQuestion
         
         :ongoing="progress"
@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import ProgressBar from "./components/ProgressBar.vue";
+
 import QuizQuestion from "./components/QuizQuestion.vue";
 import buttonComponent from "./components/buttonComponent";
 export default {
   name: "App",
   components: {
-    ProgressBar,
+   
     QuizQuestion,
     buttonComponent,
   },
@@ -103,18 +103,20 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap');
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   color: #ced0d5;
   background: #252c4a;
   padding: 0;
-  margin: auto;
+  margin: 0;
   box-sizing: border-box;
  
-  height: 100%;
+  height: 100vh;
 }
 
 .app {
