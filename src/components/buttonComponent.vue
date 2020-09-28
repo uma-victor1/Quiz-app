@@ -1,24 +1,23 @@
 <template>
   <div>
-    <button :disabled="total < 9" @click="submit">
+    <button @click="submit">
       <slot>submit</slot>
     </button>
   </div>
 </template>
 
 <script>
-import { bus } from "../main";
 export default {
   data() {
     return {
-  
+      total: null,
     };
   },
-  props: ["array", "total",'answered'],
- 
+  props: ["questions", "correctAnswer"],
+
   methods: {
     submit() {
-      this.$emit("submit");
+      alert("total score = " + this.correctAnswer +' out of ' + this.questions.length);
     },
   },
 };
