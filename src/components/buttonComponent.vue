@@ -17,7 +17,7 @@ export default {
 
   methods: {
     submit() {
-      alert("total score = " + this.correctAnswer +' out of ' + this.questions.length);
+      this.$swal("total score = " + this.correctAnswer +' out of ' + this.questions.length);
     },
   },
 };
