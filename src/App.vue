@@ -1,23 +1,24 @@
 <template>
-    <div id="app">
-   
-      <p>
-        <!-- use router-link component for navigation. -->
-        <!-- specify the link by passing the `to` prop. -->
-        <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-        <router-link to="/">Home</router-link>
-        <router-link to="/About">About</router-link>
-      </p>
-      <!-- route outlet -->
-      <!-- component matched by the route will render here -->
-      <router-view></router-view>
+  <div id="app">
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+    <div class="navigation">
+      <router-link to="/">Home</router-link>
+      <router-link to="/About">About</router-link>
+      <router-link :to="{ name: 'Contact', params: { id: '1234' } }"
+        >Contact</router-link
+      >
     </div>
+
+    <!-- route outlet -->
+    <!-- component matched by the route will render here -->
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-  export default {
-    
-  }
+export default {};
 </script>
 
 <style scoped>
@@ -35,12 +36,12 @@
 
   height: 100vh;
 }
-p{
-  text-align: center;
+.navigation {
+  display: flex;
+  justify-content: center;
 }
-P > a{
+.navigation a {
   color: white;
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
-
 </style>

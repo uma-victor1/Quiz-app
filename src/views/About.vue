@@ -1,6 +1,7 @@
 <template>
   <div class="About">
     <P> Total score 6/10</P>
+
   </div>
 </template>
 
